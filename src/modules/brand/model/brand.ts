@@ -2,6 +2,8 @@ import { z } from "zod";
 import { ModelStatus } from "../../../share/model/base-model";
 import { ErrBrandNameToShort } from "./errors";
 
+export const modelName = "brand";
+
 export const BrandSchema = z.object({
   id: z.string().uuid(),
   name: z.string().min(2, ErrBrandNameToShort.message),

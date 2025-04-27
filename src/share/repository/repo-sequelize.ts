@@ -3,13 +3,25 @@ import { IRepository } from "../interface";
 import { PagingDTO } from "../model/paging";
 import { ModelStatus } from "../model/base-model";
 
-export class BaseRepositorySequelize<Entity, Cond, UpdateDTO>
+export abstract class BaseRepositorySequelize<Entity, Cond, UpdateDTO>
   implements IRepository<Entity, Cond, UpdateDTO>
 {
   constructor(
     private readonly sequelize: Sequelize,
     private readonly modelName: string
   ) {}
+  async findByCond(cond: UpdateDTO): Promise<Entity | null> {
+    const data = await this.sequelize.models[this.modelName].findOne({
+      where: cond as any,
+    });
+
+    if (!data) {
+      return null;
+    }
+
+    const persistenceData = data.get({ plain: true });
+    return persistenceData as Entity;
+  }
 
   // get data by id
   async get(id: string): Promise<Entity | null> {

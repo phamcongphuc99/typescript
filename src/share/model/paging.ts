@@ -7,3 +7,4 @@ export const PagingDTOScheme = z.object({
 });
 
 export type PagingDTO = z.infer<typeof PagingDTOScheme>;
+export type Cond = {};

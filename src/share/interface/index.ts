@@ -6,6 +6,7 @@ export interface IRepository<Entity, UpdateDTO, Cond>
 
 export interface IQueryRepository<Entity, Cond> {
   get(id: string): Promise<Entity | null>;
+  findByCond(cond: Cond): Promise<Entity | null>;
   list(cond: Cond, paging: PagingDTO): Promise<Array<Entity>>;
 }
 
